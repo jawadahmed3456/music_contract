@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract MusicContract {
+    address public owner;
+    bool public isPaused;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function shareMusic(address newOwner) public {
+        // Use require for ownership validation
+        require(msg.sender == owner, "Only the owner can share music");
+        owner = newOwner;
+    }
+
+    function pauseMusic() public {
+        // Use assert for a condition check
+        assert(!isPaused);
+        isPaused = true;
+    }
+
+    function resumeMusic() public {
+        // Use revert for an exceptional case
+        if (!isPaused) {
+            revert("Music is not paused");
+        }
+        isPaused = false;
+    }
+}
